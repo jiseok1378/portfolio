@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { career, featuredCases, otherCases, profile } from '@/content';
 import { useChatStore } from '@/stores/chat';
@@ -7,6 +7,8 @@ import SiteHero from '@/components/SiteHero.vue';
 import CaseCard from '@/components/CaseCard.vue';
 import CareerTimeline from '@/components/CareerTimeline.vue';
 import ChatPanel from '@/components/ChatPanel.vue';
+import { hasSeenTour } from '@/tour/firstVisit';
+import { startTour } from '@/tour/startTour';
 
 const me = profile();
 const { messages } = storeToRefs(useChatStore());
@@ -30,13 +32,22 @@ watch(hasConversation, (now) => {
     chatting.value = true;
   }
 });
+
+// 처음 온 사람에게만 둘러보기를 띄운다(화면이 자리 잡은 뒤)
+let tourTimer: ReturnType<typeof setTimeout> | undefined;
+onMounted(() => {
+  if (!hasSeenTour()) {
+    tourTimer = setTimeout(startTour, 800);
+  }
+});
+onBeforeUnmount(() => clearTimeout(tourTimer));
 </script>
 
 <template>
   <main class="page index-page">
     <div class="index-hero" :class="{ 'index-hero--chatting': chatting }">
       <SiteHero :profile="me" />
-      <section id="chat" class="index-hero__chat">
+      <section id="chat" class="index-hero__chat" data-tour="chat">
         <h2 class="section-title">제 경력에 대해 물어보세요</h2>
         <p class="index-hero__chat-sub">이 사이트의 사례 글을 근거로 AI가 답합니다.</p>
         <ChatPanel />
@@ -45,11 +56,11 @@ watch(hasConversation, (now) => {
 
     <section id="cases">
       <h2 class="section-title">대표 사례</h2>
-      <div class="case-list">
+      <div class="case-list" data-tour="cases">
         <CaseCard v-for="c in featuredCases()" :key="c.slug" :item="c" />
       </div>
 
-      <div class="more-cases">
+      <div class="more-cases" data-tour="more-cases">
         <h3 class="more-cases__title">그 밖의 사례</h3>
         <ul>
           <li v-for="c in otherCases()" :key="c.slug">
@@ -60,7 +71,7 @@ watch(hasConversation, (now) => {
       </div>
     </section>
 
-    <section id="career">
+    <section id="career" data-tour="career">
       <h2 class="section-title">경력</h2>
       <CareerTimeline :career="career()" />
     </section>
