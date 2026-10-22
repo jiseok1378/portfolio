@@ -65,14 +65,14 @@ class ChatServiceTest {
     @Test
     void sources_comeFromRetrievedDocsInOrder_deduplicated_skippingCareer() {
         givenDocs(List.of(
-                doc("parallel-testing", "병렬"), doc("career", "경력 요약"),
-                doc("realtime-records", "실시간"), doc("parallel-testing", "병렬")));
+                doc("ad-card-designer", "AD"), doc("career", "경력 요약"),
+                doc("realtime-records", "실시간"), doc("ad-card-designer", "AD")));
         when(chatModel.stream(any(Prompt.class))).thenReturn(Flux.just(chunk("답")));
 
         ChatEvent sources = run("q").stream().filter(e -> e.event().equals("sources")).findFirst().orElseThrow();
 
         assertThat(sources.data()).isEqualTo(List.of(
-                Map.of("slug", "parallel-testing", "title", "병렬 처리로 테스트 생성 시간 4~8배 단축"),
+                Map.of("slug", "ad-card-designer", "title", "AD 카드 디자이너 — DB 설계부터 출력까지 혼자"),
                 Map.of("slug", "realtime-records", "title", "실시간 경기 기록 파이프라인")));
     }
 

@@ -58,16 +58,30 @@ export interface Profile {
 
 const caseFiles = import.meta.glob<CaseContent>('@content/cases/*.json', { eager: true, import: 'default' });
 
-const allCases: CaseContent[] = (caseOrder as string[]).map((slug) => {
+function load(slug: string): CaseContent {
   const found = Object.entries(caseFiles).find(([path]) => path.endsWith(`/${slug}.json`));
   if (!found) {
     throw new Error(`사례 파일이 없습니다: ${slug}`);
   }
   return found[1];
-});
+}
 
+const order = caseOrder as { featured: string[]; others: string[] };
+const featured = order.featured.map(load);
+const others = order.others.map(load);
+const allCases: CaseContent[] = [...featured, ...others];
+
+/** 대표 사례(첫 화면 카드) + 그 밖의 사례 */
 export function cases(): CaseContent[] {
   return allCases;
+}
+
+export function featuredCases(): CaseContent[] {
+  return featured;
+}
+
+export function otherCases(): CaseContent[] {
+  return others;
 }
 
 export function findCase(slug: string): CaseContent | undefined {

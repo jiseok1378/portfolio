@@ -4,7 +4,16 @@
       "period": "2023.01 ~ 현재",
       "company": "아이티센 클로잇",
       "role": "백엔드 개발",
-      "stack": ["Spring Boot", "MyBatis", "MySQL", "Redis", "Kafka", "Vue3", "Quasar", "전자정부프레임워크"],
+      "stack": [
+        "Spring Boot",
+        "MyBatis",
+        "MySQL",
+        "Redis",
+        "Kafka",
+        "Vue3",
+        "Quasar",
+        "전자정부프레임워크"
+      ],
       "stories": [
         {
           "title": "국제 스포츠 대회 운영 SaaS (2025 ~ 현재)",
@@ -22,8 +31,25 @@
       "period": "2020.06 ~ 2022.12",
       "company": "코드마인드",
       "role": "자동검증팀 연구원",
-      "stack": ["Spring Boot", "Vue2", "Electron", "PostgreSQL", "Docker", "Jenkins"],
+      "stack": [
+        "Spring Boot",
+        "Vue2",
+        "Electron",
+        "PostgreSQL",
+        "Docker",
+        "Jenkins"
+      ],
       "stories": [
+        {
+          "title": "병렬 처리로 테스트 생성 시간 단축 (2022)",
+          "body": "C/C++ 단위 테스트 자동화 도구 COYOTE의 테스트 케이스 생성 작업을 병렬 처리 구조로 바꿨습니다. 내부 측정에서 테스트 시간이 약 4~8배 줄었고, '코요테 부스터 패키지 FX'로 출시되어 언론에 보도됐습니다.",
+          "links": [
+            {
+              "label": "보안뉴스 기사 (2022-12-26)",
+              "url": "https://www.boannews.com/news/articleView.html?idxno=112964"
+            }
+          ]
+        },
         {
           "title": "진행률 조회: Polling → WebSocket",
           "body": "테스트 진행률을 Polling으로 가져오고 있었는데, 요청마다 DB를 조회해 다른 작업과 겹치면 부하가 컸습니다. 필요할 때만 서버가 보내도록 Spring WebSocket으로 바꿔, 화면 반응과 데이터 처리 속도가 2배 이상 빨라졌습니다.",
@@ -37,7 +63,12 @@
         {
           "title": "다국어 JSON 누락 검사",
           "body": "다국어 JSON 파일이 커질수록 언어별로 키가 빠지는 일이 늘었습니다. 키를 재귀로 비교해 빠진 키를 찾는 Node.js 도구를 만들어 배포 과정에 넣고, 빠진 키가 있으면 배포를 멈추게 했습니다. 테스트 소요 시간이 20% 줄었습니다.",
-          "links": [{ "label": "GitHub: JsonCompare", "url": "https://github.com/jiseok1378/JsonCompare" }]
+          "links": [
+            {
+              "label": "GitHub: JsonCompare",
+              "url": "https://github.com/jiseok1378/JsonCompare"
+            }
+          ]
         },
         {
           "title": "엑셀 리포트 속도 개선",
@@ -71,17 +102,47 @@
     }
   ],
   "education": [
-    { "period": "2016 ~ 2021", "name": "인하공업전문대학 컴퓨터시스템과 졸업" },
-    { "period": "~ 2026", "name": "한국방송통신대학교 컴퓨터과학과 졸업" }
+    {
+      "period": "2016 ~ 2021",
+      "name": "인하공업전문대학 컴퓨터시스템과 졸업"
+    },
+    {
+      "period": "~ 2026",
+      "name": "한국방송통신대학교 컴퓨터과학과 졸업"
+    }
   ],
   "certifications": [
-    { "date": "2023.09", "name": "정보처리기사" },
-    { "date": "2026.08", "name": "AICE Basic" },
-    { "date": "2025.02", "name": "AWS Professional Services ECCSA(클라우드 컨테이너 보안 평가) 교육, 2주" },
-    { "date": "2026.09", "name": "Cloud Academy-TA Path, 40시간" },
-    { "date": "2025.09", "name": "GEN AI 부트캠프, 40시간" },
-    { "date": "2025.09", "name": "핸즈온 바이브 코딩, 25시간" },
-    { "date": "2026.04", "name": "멀티 에이전트 관리 플랫폼 딥다이브, 5시간" },
-    { "date": "2026.10", "name": "AI 코딩 에이전트 & Claude Code 과정, 6시간" }
+    {
+      "date": "2023.09",
+      "name": "정보처리기사"
+    },
+    {
+      "date": "2026.08",
+      "name": "AICE Basic"
+    },
+    {
+      "date": "2025.02",
+      "name": "AWS Professional Services ECCSA(클라우드 컨테이너 보안 평가) 교육, 2주"
+    },
+    {
+      "date": "2026.09",
+      "name": "Cloud Academy-TA Path, 40시간"
+    },
+    {
+      "date": "2025.09",
+      "name": "GEN AI 부트캠프, 40시간"
+    },
+    {
+      "date": "2025.09",
+      "name": "핸즈온 바이브 코딩, 25시간"
+    },
+    {
+      "date": "2026.04",
+      "name": "멀티 에이전트 관리 플랫폼 딥다이브, 5시간"
+    },
+    {
+      "date": "2026.10",
+      "name": "AI 코딩 에이전트 & Claude Code 과정, 6시간"
+    }
   ]
 }

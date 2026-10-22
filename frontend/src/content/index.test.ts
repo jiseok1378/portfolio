@@ -1,18 +1,23 @@
 import { describe, expect, test } from 'vitest';
-import { career, cases, findCase, profile } from './index';
+import { career, cases, featuredCases, findCase, otherCases, profile } from './index';
 
 describe('content', () => {
-  test('cases follow index.json order', () => {
-    expect(cases().map((c) => c.slug)).toEqual([
+  test('featured cases follow index.json order', () => {
+    expect(featuredCases().map((c) => c.slug)).toEqual([
       'realtime-records',
-      'llm-tools-chatbot',
       'ad-card-designer',
+      'llm-tools-chatbot',
       'custom-fields',
-      'report-versioning',
-      'parallel-testing',
-      'auth-db-docker',
       'ai-harness',
     ]);
+  });
+
+  test('other cases are listed separately', () => {
+    expect(otherCases().map((c) => c.slug)).toEqual(['report-versioning', 'auth-db-docker']);
+  });
+
+  test('cases() returns featured then others', () => {
+    expect(cases()).toHaveLength(7);
   });
 
   test('findCase unknown slug is undefined', () => {
@@ -20,12 +25,18 @@ describe('content', () => {
   });
 
   test('findCase known slug returns the case', () => {
-    expect(findCase('parallel-testing')?.title).toContain('병렬');
+    expect(findCase('ad-card-designer')?.title).toContain('AD 카드');
   });
 
   test('profile blank fields are empty strings', () => {
     expect(profile().name).toBe('');
     expect(profile().email).toBe('');
+  });
+
+  test('parallel processing story lives in career with the article link', () => {
+    const stories = career().jobs.flatMap((j) => j.stories);
+    const story = stories.find((x) => x.title.includes('병렬'));
+    expect(story?.links[0]?.url).toContain('boannews.com');
   });
 
   test('career has jobs, side projects, education and certifications', () => {

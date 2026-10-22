@@ -11,10 +11,10 @@ test('unknown slug shows not-found message with link home', () => {
 });
 
 test('known slug shows title and sections', () => {
-  const w = mountQ(CasePage, { props: { slug: 'parallel-testing' }, global: { stubs } });
-  expect(w.find('h1').text()).toContain('병렬');
+  const w = mountQ(CasePage, { props: { slug: 'ad-card-designer' }, global: { stubs } });
+  expect(w.find('h1').text()).toContain('AD 카드');
   expect(w.text()).toContain('문제');
-  expect(w.find('a[href^="https://www.boannews.com"]').exists()).toBe(true);
+  expect(w.find('.flow').exists()).toBe(true);
 });
 
 test('unfinished side project is labelled', () => {

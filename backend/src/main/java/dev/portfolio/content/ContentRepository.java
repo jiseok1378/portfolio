@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /** classpath의 content/ JSON(저장소 루트 content/를 빌드 때 복사)을 시작 시 한 번 읽어 보관한다. */
 @Component
@@ -20,8 +21,8 @@ public class ContentRepository {
     private final Profile profile;
 
     public ContentRepository(ObjectMapper mapper) {
-        List<String> order = read(mapper, "content/cases/index.json", new TypeReference<>() { });
-        this.cases = order.stream()
+        CaseOrder order = read(mapper, "content/cases/index.json", new TypeReference<>() { });
+        this.cases = Stream.concat(order.featured().stream(), order.others().stream())
                 .map(slug -> read(mapper, "content/cases/" + slug + ".json", new TypeReference<CaseContent>() { }))
                 .toList();
         this.career = read(mapper, "content/career.json", new TypeReference<>() { });
@@ -42,6 +43,10 @@ public class ContentRepository {
 
     public Profile profile() {
         return profile;
+    }
+
+    /** 대표 사례와 그 밖의 사례. 챗봇은 둘을 구분하지 않고 모두 쓴다. */
+    private record CaseOrder(List<String> featured, List<String> others) {
     }
 
     private static <T> T read(ObjectMapper mapper, String path, TypeReference<T> type) {

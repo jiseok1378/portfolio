@@ -12,7 +12,8 @@ class ContentRepositoryTest {
     @Test
     void cases_areInIndexOrder() {
         assertThat(repo.cases()).extracting(CaseContent::slug).containsExactly(
-                "realtime-records", "llm-tools-chatbot", "ad-card-designer", "custom-fields", "report-versioning", "parallel-testing", "auth-db-docker", "ai-harness");
+                "realtime-records", "ad-card-designer", "llm-tools-chatbot", "custom-fields", "ai-harness",
+                "report-versioning", "auth-db-docker");
     }
 
     @Test
@@ -31,7 +32,7 @@ class ContentRepositoryTest {
 
     @Test
     void findCase_knownSlug_returnsIt() {
-        assertThat(repo.findCase("parallel-testing")).map(CaseContent::title).hasValueSatisfying(t -> assertThat(t).contains("병렬"));
+        assertThat(repo.findCase("ad-card-designer")).map(CaseContent::title).hasValueSatisfying(t -> assertThat(t).contains("AD 카드"));
     }
 
     @Test

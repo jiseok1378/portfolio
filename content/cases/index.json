@@ -1,1 +1,4 @@
-["realtime-records", "llm-tools-chatbot", "ad-card-designer", "custom-fields", "report-versioning", "parallel-testing", "auth-db-docker", "ai-harness"]
+{
+  "featured": ["realtime-records", "ad-card-designer", "llm-tools-chatbot", "custom-fields", "ai-harness"],
+  "others": ["report-versioning", "auth-db-docker"]
+}

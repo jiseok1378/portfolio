@@ -256,6 +256,34 @@ a {
   color: var(--muted);
 }
 
+.more-cases__title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 32px 0 8px;
+}
+
+.more-cases {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.more-cases li {
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.more-cases a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.more-cases p {
+  margin: 2px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
 /* 경력 */
 .career__job {
   padding: 20px 0;

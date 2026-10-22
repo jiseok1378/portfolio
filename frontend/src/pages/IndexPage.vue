@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { career, cases, profile } from '@/content';
+import { career, featuredCases, otherCases, profile } from '@/content';
 import SiteHero from '@/components/SiteHero.vue';
 import CaseCard from '@/components/CaseCard.vue';
 import CareerTimeline from '@/components/CareerTimeline.vue';
@@ -20,8 +20,16 @@ const me = profile();
     <section id="cases">
       <h2 class="section-title">대표 사례</h2>
       <div class="case-grid">
-        <CaseCard v-for="c in cases()" :key="c.slug" :item="c" />
+        <CaseCard v-for="c in featuredCases()" :key="c.slug" :item="c" />
       </div>
+
+      <h3 class="more-cases__title">그 밖의 사례</h3>
+      <ul class="more-cases">
+        <li v-for="c in otherCases()" :key="c.slug">
+          <router-link :to="`/cases/${c.slug}`">{{ c.title }}</router-link>
+          <p>{{ c.summary }}</p>
+        </li>
+      </ul>
     </section>
 
     <section id="career">
