@@ -14,3 +14,6 @@ content/.forbidden-terms.local.txt
 
 # IDE
 .idea/
+
+# Playwright 기록
+.playwright-mcp/

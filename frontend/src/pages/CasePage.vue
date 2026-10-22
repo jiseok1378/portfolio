@@ -2,6 +2,7 @@
 import { computed, watchEffect } from 'vue';
 import { findCase } from '@/content';
 import CaseSections from '@/components/CaseSections.vue';
+import ChatDialogButton from '@/components/ChatDialogButton.vue';
 
 const props = defineProps<{ slug: string }>();
 
@@ -30,6 +31,8 @@ watchEffect(() => {
           <a :href="link.url" target="_blank" rel="noopener">{{ link.label }}</a>
         </li>
       </ul>
+
+      <ChatDialogButton :case-slug="item.slug" :case-title="item.title" />
     </template>
 
     <template v-else>
