@@ -17,6 +17,19 @@ export interface CaseSectionsData {
   interviewQuestions: { q: string; a: string }[];
 }
 
+/** 사례 화면에만 보여주는 코드. 챗봇 임베딩에는 넣지 않는다. */
+export interface Snippet {
+  title: string;
+  lang: string;
+  code: string;
+}
+
+/** 사례 화면에만 보여주는 스크린샷. src 는 frontend/public 기준 경로. */
+export interface Screenshot {
+  src: string;
+  caption: string;
+}
+
 export type DiagramKind = 'realtime' | 'chatbot' | 'auth' | 'adcard' | 'fields' | 'manual' | null;
 
 export interface CaseContent {
@@ -30,6 +43,8 @@ export interface CaseContent {
   unfinished: boolean;
   diagram: DiagramKind;
   sections: CaseSectionsData;
+  snippets?: Snippet[];
+  screenshots?: Screenshot[];
   links: Link[];
 }
 

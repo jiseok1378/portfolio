@@ -630,6 +630,70 @@ a {
   margin: 4px 0 12px;
 }
 
+/* 실제 화면 · 핵심 코드 */
+.case-screenshots h2,
+.case-snippets h2 {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.screenshot {
+  margin: 0 0 24px;
+}
+
+.screenshot img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--grey-100);
+}
+
+.screenshot figcaption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--grey-600);
+}
+
+.snippet {
+  margin: 0 0 20px;
+  border-radius: var(--radius-m);
+  background: var(--grey-50);
+  border: 1px solid var(--grey-100);
+  overflow: hidden;
+}
+
+.snippet figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--grey-100);
+  font-size: 14px;
+}
+
+.snippet__title {
+  font-weight: 700;
+}
+
+.snippet__lang {
+  color: var(--grey-500);
+}
+
+.snippet pre {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-family: ui-monospace, Consolas, 'D2Coding', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
 /* 흐름 그림 (Vue Flow) */
 .flow {
   margin: 36px 0 0;

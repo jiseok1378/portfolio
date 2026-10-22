@@ -2,6 +2,8 @@
 import { computed, watchEffect } from 'vue';
 import { findCase } from '@/content';
 import CaseSections from '@/components/CaseSections.vue';
+import CaseScreenshots from '@/components/CaseScreenshots.vue';
+import CaseSnippets from '@/components/CaseSnippets.vue';
 import ChatDialogButton from '@/components/ChatDialogButton.vue';
 import FlowDiagram from '@/components/diagrams/FlowDiagram.vue';
 
@@ -30,6 +32,10 @@ watchEffect(() => {
       <FlowDiagram v-if="item.diagram" :kind="item.diagram" />
 
       <CaseSections :sections="item.sections" />
+
+      <CaseScreenshots v-if="item.screenshots?.length" :screenshots="item.screenshots" />
+
+      <CaseSnippets v-if="item.snippets?.length" :snippets="item.snippets" />
 
       <ul v-if="item.links.length > 0" class="case-page__links">
         <li v-for="link in item.links" :key="link.url">
