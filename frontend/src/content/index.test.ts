@@ -6,6 +6,7 @@ describe('content', () => {
     expect(cases().map((c) => c.slug)).toEqual([
       'realtime-records',
       'llm-tools-chatbot',
+      'ad-card-designer',
       'parallel-testing',
       'auth-db-docker',
       'ai-harness',

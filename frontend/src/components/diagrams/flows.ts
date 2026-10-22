@@ -11,7 +11,27 @@ export interface Flow {
   steps: FlowStep[];
 }
 
-export const FLOWS: Record<'realtime' | 'chatbot' | 'auth', Flow> = {
+export const FLOWS: Record<'realtime' | 'chatbot' | 'auth' | 'adcard', Flow> = {
+  adcard: {
+    caption: '카드 한 장을 이루는 데이터 구조',
+    steps: [
+      {
+        label: '템플릿',
+        detail: '대회별 카드 디자인 · 크기',
+        key: true,
+        branch: { label: '부모 · 서브 · 분류별 템플릿', detail: '공통 디자인은 한 번만, 참가자 분류별 차이만 따로' },
+      },
+      { label: '페이지', detail: '앞면 · 뒷면, 배경 이미지, 여백' },
+      { label: '행', detail: '순서 · 높이 · 스타일' },
+      { label: '열', detail: '너비 · 스타일' },
+      {
+        label: '구성 요소',
+        detail: '사진, 이름, 소속 엠블럼, 종목 등',
+        key: true,
+        branch: { label: '요소 목록은 별도 테이블', detail: '새 요소가 생겨도 구조를 바꾸지 않음' },
+      },
+    ],
+  },
   realtime: {
     caption: '기록 한 건이 화면에 닿기까지',
     steps: [

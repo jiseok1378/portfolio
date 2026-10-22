@@ -4,7 +4,14 @@ import { FLOWS } from './flows';
 import { mountQ } from '@/test-utils';
 
 test('every diagram kind used by content has a flow', () => {
-  expect(Object.keys(FLOWS).sort()).toEqual(['auth', 'chatbot', 'realtime']);
+  expect(Object.keys(FLOWS).sort()).toEqual(['adcard', 'auth', 'chatbot', 'realtime']);
+});
+
+test('ad card flow shows the template hierarchy', () => {
+  const w = mountQ(FlowDiagram, { props: { kind: 'adcard' } });
+  expect(w.findAll('.flow__node strong').map((n) => n.text())).toEqual([
+    '템플릿', '페이지', '행', '열', '구성 요소',
+  ]);
 });
 
 test('renders steps in order with branch notes', () => {

@@ -17,7 +17,7 @@ export interface CaseSectionsData {
   interviewQuestions: { q: string; a: string }[];
 }
 
-export type DiagramKind = 'realtime' | 'chatbot' | 'auth' | null;
+export type DiagramKind = 'realtime' | 'chatbot' | 'auth' | 'adcard' | null;
 
 export interface CaseContent {
   slug: string;
