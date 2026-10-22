@@ -7,6 +7,7 @@ describe('content', () => {
       'realtime-records',
       'llm-tools-chatbot',
       'ad-card-designer',
+      'custom-fields',
       'parallel-testing',
       'auth-db-docker',
       'ai-harness',

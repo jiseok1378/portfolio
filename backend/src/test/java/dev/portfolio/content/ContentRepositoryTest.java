@@ -12,7 +12,7 @@ class ContentRepositoryTest {
     @Test
     void cases_areInIndexOrder() {
         assertThat(repo.cases()).extracting(CaseContent::slug).containsExactly(
-                "realtime-records", "llm-tools-chatbot", "ad-card-designer", "parallel-testing", "auth-db-docker", "ai-harness");
+                "realtime-records", "llm-tools-chatbot", "ad-card-designer", "custom-fields", "parallel-testing", "auth-db-docker", "ai-harness");
     }
 
     @Test

@@ -11,7 +11,21 @@ export interface Flow {
   steps: FlowStep[];
 }
 
-export const FLOWS: Record<'realtime' | 'chatbot' | 'auth' | 'adcard', Flow> = {
+export const FLOWS: Record<'realtime' | 'chatbot' | 'auth' | 'adcard' | 'fields', Flow> = {
+  fields: {
+    caption: '설정 한 번이 여러 서비스 화면에 퍼지기까지',
+    steps: [
+      {
+        label: '공통 설정 서비스',
+        detail: '기본 필드 · 커스텀 필드를 한 곳에서 관리',
+        key: true,
+        branch: { label: '적용 범위', detail: '모든 대회에 적용하거나 특정 대회만 덮어쓰기' },
+      },
+      { label: '서비스 간 API 호출', detail: '각 서비스가 메뉴별 설정을 읽음' },
+      { label: '업무 화면', detail: '카드 발급 · 승인 · 온라인 등록이 컬럼과 입력란을 구성', key: true },
+      { label: '검증', detail: '필수 여부 · 길이 · 여권과 사진 검증도 설정대로' },
+    ],
+  },
   adcard: {
     caption: '카드 한 장을 이루는 데이터 구조',
     steps: [

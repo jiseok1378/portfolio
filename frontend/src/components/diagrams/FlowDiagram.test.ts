@@ -4,7 +4,7 @@ import { FLOWS } from './flows';
 import { mountQ } from '@/test-utils';
 
 test('every diagram kind used by content has a flow', () => {
-  expect(Object.keys(FLOWS).sort()).toEqual(['adcard', 'auth', 'chatbot', 'realtime']);
+  expect(Object.keys(FLOWS).sort()).toEqual(['adcard', 'auth', 'chatbot', 'fields', 'realtime']);
 });
 
 test('ad card flow shows the template hierarchy', () => {
