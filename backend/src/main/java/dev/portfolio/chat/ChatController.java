@@ -61,8 +61,11 @@ public class ChatController {
         return chatService.answer(new ChatRequest(message, request.history(), request.caseSlug()));
     }
 
+    /**
+     * data 는 항상 JSON 으로 보낸다. 글자 조각도 JSON 문자열(" 남겨서")로 보내야
+     * 앞 공백(SSE 는 data: 뒤 공백 한 칸을 지움)과 줄바꿈이 그대로 전달된다.
+     */
     private ServerSentEvent<String> toSse(ChatEvent event) {
-        String data = event.data() instanceof String text ? text : mapper.writeValueAsString(event.data());
-        return ServerSentEvent.builder(data).event(event.event()).build();
+        return ServerSentEvent.builder(mapper.writeValueAsString(event.data())).event(event.event()).build();
     }
 }

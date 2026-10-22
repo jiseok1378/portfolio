@@ -8,14 +8,16 @@ import type { ChatRequest } from '@/chat/chatClient';
 
 let pinia: ReturnType<typeof createPinia>;
 let seen: ChatRequest[];
+let answer = '답변입니다.';
 
 beforeEach(() => {
   pinia = createPinia();
   setActivePinia(pinia);
   seen = [];
+  answer = '답변입니다.';
   useChatStore().stream = async (req, onEvent) => {
     seen.push(req);
-    onEvent({ event: 'token', data: '답변입니다.' });
+    onEvent({ event: 'token', data: JSON.stringify(answer) });
     onEvent({ event: 'sources', data: '[{"slug":"parallel-testing","title":"병렬 처리"}]' });
     onEvent({ event: 'done', data: '{}' });
   };
@@ -51,4 +53,31 @@ test('passes caseSlug from props', async () => {
   await w.find('[data-test="send"]').trigger('click');
   await flushPromises();
   expect(seen[0]!.caseSlug).toBe('auth-db-docker');
+});
+
+test('assistant answer is rendered as markdown', async () => {
+  answer = '**굵게** 설명\n\n* 첫째\n* 둘째';
+  const w = mountPanel();
+  await w.find('[data-test="suggestion"]').trigger('click');
+  await flushPromises();
+  expect(w.find('.chat__msg--assistant strong').text()).toBe('굵게');
+  expect(w.findAll('.chat__text--md li')).toHaveLength(2);
+});
+
+test('markdown output is sanitized', async () => {
+  answer = '안녕<img src=x onerror="alert(1)"><script>alert(2)</script>';
+  const w = mountPanel();
+  await w.find('[data-test="suggestion"]').trigger('click');
+  await flushPromises();
+  const html = w.find('.chat__msg--assistant').html();
+  expect(html).not.toContain('onerror');
+  expect(html).not.toContain('<script');
+});
+
+test('user message stays plain text', async () => {
+  const w = mountPanel();
+  await w.find('textarea').setValue('**별표** 그대로');
+  await w.find('[data-test="send"]').trigger('click');
+  await flushPromises();
+  expect(w.find('.chat__msg--user').text()).toContain('**별표** 그대로');
 });

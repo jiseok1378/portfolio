@@ -2,6 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useChatStore } from '@/stores/chat';
+import { renderMarkdown } from '@/chat/markdown';
 
 const props = defineProps<{ caseSlug?: string }>();
 
@@ -43,7 +44,7 @@ watch(
   () => messages.value.map((m) => m.content.length).join(),
   async () => {
     await nextTick();
-    log.value?.scrollTo({ top: log.value.scrollHeight });
+    log.value?.scrollTo?.({ top: log.value.scrollHeight });
   },
 );
 
@@ -54,7 +55,9 @@ onBeforeUnmount(() => store.cancel());
   <div class="chat">
     <div v-if="messages.length > 0" ref="log" class="chat__log" aria-live="polite">
       <div v-for="(m, i) in messages" :key="i" class="chat__msg" :class="`chat__msg--${m.role}`">
-        <p v-if="m.content" class="chat__text">{{ m.content }}</p>
+        <!-- 답변은 마크다운(정화 후 HTML), 사용자 질문은 글자 그대로 -->
+        <div v-if="m.content && m.role === 'assistant'" class="chat__text chat__text--md" v-html="renderMarkdown(m.content)" />
+        <p v-else-if="m.content" class="chat__text">{{ m.content }}</p>
         <q-spinner-dots v-else-if="m.role === 'assistant' && !m.error && pending" size="24px" />
         <p v-if="m.error" class="chat__error">{{ m.error }}</p>
         <ul v-if="m.sources && m.sources.length > 0" class="chat__sources">

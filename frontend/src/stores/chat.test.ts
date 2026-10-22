@@ -17,8 +17,8 @@ describe('chat store', () => {
   test('appends tokens to the last assistant message and attaches sources', async () => {
     const store = useChatStore();
     store.stream = fakeStream([
-      { event: 'token', data: '이 개발자는 ' },
-      { event: 'token', data: 'DLQ를 두었습니다.' },
+      { event: 'token', data: JSON.stringify('이 개발자는 ') },
+      { event: 'token', data: JSON.stringify('DLQ를 두었습니다.') },
       { event: 'sources', data: '[{"slug":"realtime-records","title":"실시간"}]' },
       { event: 'done', data: '{}' },
     ]);
@@ -32,10 +32,23 @@ describe('chat store', () => {
     expect(store.pending).toBe(false);
   });
 
+  test('token keeps its leading space and newlines (sent as JSON string)', async () => {
+    const store = useChatStore();
+    store.stream = fakeStream([
+      { event: 'token', data: JSON.stringify('실패했는지') },
+      { event: 'token', data: JSON.stringify(' 남겨서\n- 목록') },
+      { event: 'done', data: '{}' },
+    ]);
+
+    await store.ask('q');
+
+    expect(store.messages[1]!.content).toBe('실패했는지 남겨서\n- 목록');
+  });
+
   test('keeps partial answer and sets error message on error event', async () => {
     const store = useChatStore();
     store.stream = fakeStream([
-      { event: 'token', data: '부분' },
+      { event: 'token', data: JSON.stringify('부분') },
       { event: 'error', data: '{"code":"DAILY_LIMIT","message":"오늘 질문 한도가 끝났습니다. 내일 다시 질문해 주세요."}' },
     ]);
 
@@ -66,7 +79,7 @@ describe('chat store', () => {
   test('sends at most the last HISTORY_LIMIT messages as history, excluding errored answers', async () => {
     const store = useChatStore();
     const seen: ChatRequest[] = [];
-    store.stream = fakeStream([{ event: 'token', data: 'a' }, { event: 'done', data: '{}' }], seen);
+    store.stream = fakeStream([{ event: 'token', data: JSON.stringify('a') }, { event: 'done', data: '{}' }], seen);
     for (let i = 0; i < 5; i++) {
       await store.ask(`q${i}`);
     }

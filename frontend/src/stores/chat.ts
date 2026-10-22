@@ -34,7 +34,8 @@ export const useChatStore = defineStore('chat', () => {
 
   function apply(answer: ChatMessage, e: SseEvent) {
     if (e.event === 'token') {
-      answer.content += e.data;
+      // 서버는 글자 조각을 JSON 문자열로 보낸다(앞 공백·줄바꿈 보존)
+      answer.content += JSON.parse(e.data) as string;
     } else if (e.event === 'sources') {
       answer.sources = JSON.parse(e.data) as ChatSource[];
     } else if (e.event === 'error') {

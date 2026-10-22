@@ -59,7 +59,18 @@ class ChatControllerTest {
 
         String body = call("{\"message\":\"안녕?\",\"history\":[]}");
 
-        assertThat(body).contains("event:token", "data:안녕", "event:done");
+        assertThat(body).contains("event:token", "data:\"안녕\"", "event:done");
+    }
+
+    @Test
+    void tokenWithLeadingSpace_isSentAsJsonString_soTheSpaceSurvives() throws Exception {
+        when(clientKeyResolver.resolve(any())).thenReturn("1.2.3.4");
+        when(quota.tryConsume(any(), any())).thenReturn(QuotaDecision.ALLOWED);
+        when(chatService.answer(any())).thenReturn(Flux.just(ChatEvent.token(" 남겨서\n다음 줄"), ChatEvent.done()));
+
+        String body = call("{\"message\":\"q\"}");
+
+        assertThat(body).contains("data:\" 남겨서\\n다음 줄\"");
     }
 
     @Test
