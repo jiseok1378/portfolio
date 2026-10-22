@@ -6,10 +6,15 @@ describe('tour steps', () => {
   test('cover chat, cases, more cases and career in that order', () => {
     expect(TOUR_STEPS.map((s) => s.element)).toEqual([
       '[data-tour="chat"]',
-      '[data-tour="cases"]',
+      '[data-tour="cases"] > :first-child',
       '[data-tour="more-cases"]',
-      '[data-tour="career"]',
+      '[data-tour="career"] .career__job',
     ]);
+  });
+
+  test('large areas are pointed at by their first item so the popover stays on screen', () => {
+    expect(TOUR_STEPS[1]!.element).toContain(':first-child');
+    expect(TOUR_STEPS[3]!.element).toContain('.career__job');
   });
 
   test('every step has a Korean title and description', () => {
