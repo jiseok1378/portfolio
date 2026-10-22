@@ -17,3 +17,6 @@ content/.forbidden-terms.local.txt
 
 # Playwright 기록
 .playwright-mcp/
+
+# Claude 로컬 설정 (Gemini 키 끝 4자리 등)
+.claude/*.local
