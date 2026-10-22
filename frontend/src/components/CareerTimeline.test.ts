@@ -23,3 +23,8 @@ test('story links are rendered inside the row', () => {
   const w = mountQ(CareerTimeline, { props: { career: career() } });
   expect(w.find('details.career__story a[href*="boannews.com"]').exists()).toBe(true);
 });
+
+test('side project links are rendered inside the row', () => {
+  const w = mountQ(CareerTimeline, { props: { career: career() } });
+  expect(w.find('details.career__story a[href*="dbpia.co.kr"]').exists()).toBe(true);
+});

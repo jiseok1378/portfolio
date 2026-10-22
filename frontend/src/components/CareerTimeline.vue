@@ -30,6 +30,9 @@ defineProps<{ career: CareerContent }>();
         <details v-for="p in career.sideProjects" :key="p.name" class="career__story">
           <summary>{{ p.period ? `${p.name} (${p.period})` : p.name }}</summary>
           <p>{{ p.body }}</p>
+          <p v-for="link in p.links" :key="link.url" class="career__link">
+            <a :href="link.url" target="_blank" rel="noopener">{{ link.label }}</a>
+          </p>
         </details>
       </div>
     </article>
