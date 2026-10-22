@@ -32,8 +32,7 @@ class ContentGuardTest {
             "https://www.boannews.com/news/articleView.html?idxno=112964",
             "https://github.com/I-am-ok-developmnet/i-am-ok",
             "https://github.com/jiseok1378/claude-manual-kit",
-            "https://github.com/jiseok1378/JsonCompare",
-            "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE09415023");
+            "https://github.com/jiseok1378/JsonCompare");
 
     @Test
     void contentHasNoForbiddenTerms() throws IOException {
