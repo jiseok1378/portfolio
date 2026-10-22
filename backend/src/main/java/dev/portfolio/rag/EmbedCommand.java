@@ -44,6 +44,13 @@ public class EmbedCommand implements ApplicationRunner {
             out.getParentFile().mkdirs();
         }
         store.save(out);
+        // 어떤 콘텐츠로 만든 파일인지 남겨, 콘텐츠만 바뀌고 임베딩을 빠뜨리면 테스트가 잡게 한다
+        try {
+            java.nio.file.Files.writeString(new File(out.getParentFile(), "content-hash.txt").toPath(),
+                    ContentHash.of(docs) + "\n");
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
         log.info("임베딩 완료: 문서 {}개 -> {}", docs.size(), out.getAbsolutePath());
         System.exit(SpringApplication.exit(context, () -> 0));
     }

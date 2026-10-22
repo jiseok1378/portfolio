@@ -41,13 +41,13 @@ tasks.named('processResources') {
 	}
 }
 
-// 콘텐츠를 임베딩해 build/vector/vector-store.json 을 만든다. GEMINI_API_KEY 환경 변수가 필요하다.
+// 콘텐츠를 임베딩해 src/main/resources/vector/ 에 저장한다(커밋 대상). GEMINI_API_KEY 환경 변수가 필요하다.
 tasks.register('embed', JavaExec) {
 	group = 'portfolio'
 	description = '콘텐츠 임베딩 파일 생성'
 	dependsOn 'classes'
 	classpath = sourceSets.main.runtimeClasspath
 	mainClass = 'dev.portfolio.BackendApplication'
-	args '--embed=' + layout.buildDirectory.file('vector/vector-store.json').get().asFile.absolutePath,
+	args '--embed=' + file('src/main/resources/vector/vector-store.json').absolutePath,
 		'--spring.main.web-application-type=none'
 }
