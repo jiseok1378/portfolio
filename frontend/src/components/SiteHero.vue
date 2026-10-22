@@ -12,7 +12,17 @@ const length = computed(() => careerLength(props.profile.careerStart, props.now)
 <template>
   <section class="hero">
     <p v-if="profile.name" class="hero__name" data-test="name">{{ profile.name }}</p>
-    <p class="hero__title">{{ profile.title }} · 경력 {{ length }}</p>
-    <h1 v-if="profile.headline" class="hero__headline" data-test="headline">{{ profile.headline }}</h1>
+    <h1 class="hero__title">{{ profile.title }}</h1>
+    <p class="hero__length">경력 {{ length }}</p>
+    <p v-if="profile.headline" class="hero__headline" data-test="headline">{{ profile.headline }}</p>
+    <div class="hero__method">
+      아래 사례는 모두 같은 순서로 썼습니다.
+      <ol class="hero__steps">
+        <li><span class="dot dot--problem" />문제</li>
+        <li><span class="dot" />고민</li>
+        <li><span class="dot dot--solve" />해결</li>
+        <li><span class="dot dot--result" />결과</li>
+      </ol>
+    </div>
   </section>
 </template>

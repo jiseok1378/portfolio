@@ -3,26 +3,31 @@ import { computed, watchEffect } from 'vue';
 import { findCase } from '@/content';
 import CaseSections from '@/components/CaseSections.vue';
 import ChatDialogButton from '@/components/ChatDialogButton.vue';
+import FlowDiagram from '@/components/diagrams/FlowDiagram.vue';
 
 const props = defineProps<{ slug: string }>();
 
 const item = computed(() => findCase(props.slug));
 
 watchEffect(() => {
-  document.title = item.value ? `${item.value.title} · 포트폴리오` : '포트폴리오';
+  document.title = item.value ? `${item.value.title} | 포트폴리오` : '포트폴리오';
 });
 </script>
 
 <template>
   <main class="page case-page">
     <template v-if="item">
-      <router-link to="/" class="back-link">← 전체 사례</router-link>
-      <p class="case-page__meta">{{ item.context }} · {{ item.period }}</p>
+      <router-link to="/#cases" class="back-link">전체 사례 보기</router-link>
+      <p class="case-page__period">{{ item.period }}</p>
+      <p class="case-page__context">{{ item.context }}</p>
       <h1>{{ item.title }}</h1>
       <p v-if="item.unfinished" class="case-page__badge">미완성 사이드 프로젝트</p>
       <p class="case-page__summary">{{ item.summary }}</p>
+      <ul class="tags">
+        <li v-for="tag in item.tags" :key="tag">{{ tag }}</li>
+      </ul>
 
-      <div v-if="item.diagram" class="case-page__diagram" :data-diagram="item.diagram" />
+      <FlowDiagram v-if="item.diagram" :kind="item.diagram" />
 
       <CaseSections :sections="item.sections" />
 
