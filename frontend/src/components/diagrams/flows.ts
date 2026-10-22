@@ -11,7 +11,21 @@ export interface Flow {
   steps: FlowStep[];
 }
 
-export const FLOWS: Record<'realtime' | 'chatbot' | 'auth' | 'adcard' | 'fields', Flow> = {
+export const FLOWS: Record<'realtime' | 'chatbot' | 'auth' | 'adcard' | 'fields' | 'manual', Flow> = {
+  manual: {
+    caption: '매뉴얼 작성에서 매뉴얼 챗봇까지',
+    steps: [
+      { label: '매뉴얼 플러그인', detail: '소스 코드와 실제 화면으로 다국어 매뉴얼 작성 · 검증' },
+      { label: '매뉴얼 사이트', detail: '메뉴마다 기능 설명(description)을 둔 목차', key: true },
+      {
+        label: '1단계: 메뉴 고르기',
+        detail: '목차 트리를 보고 질문에 맞는 페이지만 선택',
+        key: true,
+        branch: { label: '맞는 페이지가 없으면', detail: '지어내지 않고 "찾을 수 없음"으로 끝냄' },
+      },
+      { label: '2단계: 그 페이지 매뉴얼로 답하기', detail: '단계 · 표 · 화면 이미지를 섞어 질문한 언어로' },
+    ],
+  },
   fields: {
     caption: '설정 한 번이 여러 서비스 화면에 퍼지기까지',
     steps: [

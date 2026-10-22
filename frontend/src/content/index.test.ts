@@ -8,6 +8,7 @@ describe('content', () => {
       'llm-tools-chatbot',
       'ad-card-designer',
       'custom-fields',
+      'report-versioning',
       'parallel-testing',
       'auth-db-docker',
       'ai-harness',

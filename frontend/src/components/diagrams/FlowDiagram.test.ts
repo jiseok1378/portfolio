@@ -4,7 +4,7 @@ import { FLOWS } from './flows';
 import { mountQ } from '@/test-utils';
 
 test('every diagram kind used by content has a flow', () => {
-  expect(Object.keys(FLOWS).sort()).toEqual(['adcard', 'auth', 'chatbot', 'fields', 'realtime']);
+  expect(Object.keys(FLOWS).sort()).toEqual(['adcard', 'auth', 'chatbot', 'fields', 'manual', 'realtime']);
 });
 
 test('ad card flow shows the template hierarchy', () => {
@@ -20,4 +20,10 @@ test('renders steps in order with branch notes', () => {
   expect(nodes[0]).toBe('경기장 계측 장비');
   expect(nodes).toContain('Redis Pub/Sub');
   expect(w.find('.flow__branch').text()).toContain('DLQ');
+});
+
+test('manual flow routes to a page before answering', () => {
+  const w = mountQ(FlowDiagram, { props: { kind: 'manual' } });
+  const nodes = w.findAll('.flow__node strong').map((n) => n.text());
+  expect(nodes.indexOf('1단계: 메뉴 고르기')).toBeLessThan(nodes.indexOf('2단계: 그 페이지 매뉴얼로 답하기'));
 });
