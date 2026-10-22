@@ -29,3 +29,11 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// 저장소 루트의 content/ 를 classpath content/ 로 복사한다 (화면과 챗봇이 같은 원본을 쓴다)
+tasks.named('processResources') {
+	from('../content') {
+		into 'content'
+		exclude '.forbidden-terms.local.txt'
+	}
+}

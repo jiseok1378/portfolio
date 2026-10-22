@@ -1,0 +1,87 @@
+{
+  "jobs": [
+    {
+      "period": "2023.01 ~ 현재",
+      "company": "아이티센 클로잇",
+      "role": "백엔드 개발",
+      "stack": ["Spring Boot", "MyBatis", "MySQL", "Redis", "Kafka", "Vue3", "Quasar", "전자정부프레임워크"],
+      "stories": [
+        {
+          "title": "국제 스포츠 대회 운영 SaaS (2025 ~ 현재)",
+          "body": "참가자 인증, 엔트리 접수, 경기 결과 관리로 이어지는 대회 운영 MSA에서 실시간 경기 기록, LLM 챗봇, AI 작업 환경을 맡았습니다. 알리바바 클라우드 환경에서 운영하며, 인프라 구성은 별도 조직이 담당합니다. 대표 사례의 실시간 경기 기록, LLM Tools 챗봇, AI 작업 환경 설계를 참고해 주세요.",
+          "links": []
+        },
+        {
+          "title": "EBS 이솦 이벤트 구조 개선 (2023 ~ 2024)",
+          "body": "NCP 클라우드 환경의 교육 플랫폼을 전자정부프레임워크(Spring), JSP, MySQL로 개발·운영했습니다. 모든 이벤트 페이지를 컨트롤러 메서드 하나에서 분기 처리하고 있어 코드가 길고 고치기 어려웠습니다. 연도별 이벤트 클래스를 Spring Bean으로 등록하고, 현재 연도와 DB의 진행 중 이벤트 종류로 맞는 클래스를 자동으로 고르게 바꿨습니다(전략 패턴).",
+          "links": []
+        }
+      ]
+    },
+    {
+      "period": "2020.06 ~ 2022.12",
+      "company": "코드마인드",
+      "role": "자동검증팀 연구원",
+      "stack": ["Spring Boot", "Vue2", "Electron", "PostgreSQL", "Docker", "Jenkins"],
+      "stories": [
+        {
+          "title": "진행률 조회: Polling → WebSocket",
+          "body": "테스트 진행률을 Polling으로 가져오고 있었는데, 요청마다 DB를 조회해 다른 작업과 겹치면 부하가 컸습니다. 필요할 때만 서버가 보내도록 Spring WebSocket으로 바꿔, 화면 반응과 데이터 처리 속도가 2배 이상 빨라졌습니다.",
+          "links": []
+        },
+        {
+          "title": "빌드·테스트·배포 자동화",
+          "body": "F# 분석 엔진, Java 서버, Electron 화면을 사람이 순서대로 빌드해야 했습니다. Node.js 빌드 스크립트로 한 번에 묶고(Windows/Linux, .deb 패키지), 사내 서버에 Docker로 Jenkins를 띄워 테스트·패키징·배포를 자동화했습니다. 버전별 패키지를 서버에 쌓아 팀원이 받아 가게 했고, 테스트 결과를 보여주는 서버를 Spring Boot, PostgreSQL, JPA, Swagger로 만들었습니다.",
+          "links": []
+        },
+        {
+          "title": "다국어 JSON 누락 검사",
+          "body": "다국어 JSON 파일이 커질수록 언어별로 키가 빠지는 일이 늘었습니다. 키를 재귀로 비교해 빠진 키를 찾는 Node.js 도구를 만들어 배포 과정에 넣고, 빠진 키가 있으면 배포를 멈추게 했습니다. 테스트 소요 시간이 20% 줄었습니다.",
+          "links": [{ "label": "GitHub: JsonCompare", "url": "https://github.com/jiseok1378/JsonCompare" }]
+        },
+        {
+          "title": "엑셀 리포트 속도 개선",
+          "body": "엑셀 리포트를 만들 때 너무 느리다는 의견을 받았습니다. 직접 재현해 보니 Apache POI 자체와 내부 로직이 원인이었습니다. fastexcel로 바꾸고 느린 로직을 고쳐 속도를 200% 개선했습니다.",
+          "links": []
+        },
+        {
+          "title": "컨트롤러 정리와 테스트 도입",
+          "body": "REST 컨트롤러가 요청과 응답을 String으로 받아 매번 직접 파싱하고 있었습니다. 팀과 상의해 POJO로 바꾸고, JUnit5와 MockMvc로 컨트롤러 테스트를 함께 도입했습니다.",
+          "links": []
+        }
+      ]
+    }
+  ],
+  "sideProjects": [
+    {
+      "name": "온라인 보드게임 앱 — CI/CD 자동 배포",
+      "period": "2025.10 ~ 2025.11",
+      "body": "공통 라이브러리를 main에 올리면 GitHub Actions가 빌드·테스트 후 GitHub Packages에 배포하고, 서버들은 이를 의존성으로 가져다 씁니다. 서버는 main에 올리면 Docker 이미지를 GHCR에 올리고 배포 훅으로 자동 교체됩니다. 비공개 패키지 토큰은 BuildKit secret으로 넘겨 이미지에 남지 않게 했고, Nginx는 연결 주소를 환경 변수로 받아 환경마다 이미지를 새로 만들지 않게 했습니다.",
+      "links": []
+    },
+    {
+      "name": "사내 제안서 작성 도우미 RAG 챗봇",
+      "body": "기존 제안서를 Chroma 벡터 DB에 쌓아 새 제안서 작성을 돕는 챗봇입니다. Spring AI 공식 문서를 보며 처음으로 RAG를 구현했고, TopK와 Temperature를 직접 바꿔 보며 익혔습니다. {역할} 같은 빈칸이 있는 프롬프트 틀로 상황마다 다른 역할을 맡겼습니다. Ollama와 쿠버네티스로 사내 서버에서 돌려, 사내 문서가 외부로 나가지 않게 했습니다.",
+      "links": []
+    },
+    {
+      "name": "학회 논문과 공모전 (대학, 2020)",
+      "body": "「딥러닝을 이용한 코로나 챗봇」(한국컴퓨터정보학회 2020)에서 Seq2seq 모델을 Flask API로 만들어 Spring과 연결했습니다. 같은 해 생활방역 아이디어 공모전에서 금상을 받았습니다.",
+      "links": []
+    }
+  ],
+  "education": [
+    { "period": "2016 ~ 2021", "name": "인하공업전문대학 컴퓨터시스템과 졸업" },
+    { "period": "~ 2026", "name": "한국방송통신대학교 컴퓨터과학과 졸업" }
+  ],
+  "certifications": [
+    { "date": "2023.09", "name": "정보처리기사" },
+    { "date": "2026.08", "name": "AICE Basic" },
+    { "date": "2025.02", "name": "AWS Professional Services ECCSA(클라우드 컨테이너 보안 평가) 교육, 2주" },
+    { "date": "2026.09", "name": "Cloud Academy-TA Path, 40시간" },
+    { "date": "2025.09", "name": "GEN AI 부트캠프, 40시간" },
+    { "date": "2025.09", "name": "핸즈온 바이브 코딩, 25시간" },
+    { "date": "2026.04", "name": "멀티 에이전트 관리 플랫폼 딥다이브, 5시간" },
+    { "date": "2026.10", "name": "AI 코딩 에이전트 & Claude Code 과정, 6시간" }
+  ]
+}

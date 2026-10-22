@@ -8,3 +8,6 @@ docs/superpowers/
 # 비밀 값
 .env
 .env.*
+
+# 금칙어 원문 (해시만 커밋)
+content/.forbidden-terms.local.txt
