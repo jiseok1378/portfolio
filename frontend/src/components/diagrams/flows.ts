@@ -24,6 +24,7 @@ export const FLOWS: Record<'realtime' | 'chatbot' | 'auth' | 'adcard' | 'fields'
       { label: '서비스 간 API 호출', detail: '각 서비스가 메뉴별 설정을 읽음' },
       { label: '업무 화면', detail: '카드 발급 · 승인 · 온라인 등록이 컬럼과 입력란을 구성', key: true },
       { label: '검증', detail: '필수 여부 · 길이 · 여권과 사진 검증도 설정대로' },
+      { label: '화면 이동 시 증분 갱신', detail: '처음 한 번 받아 두고, 이후에는 바뀐 부분만', key: true },
     ],
   },
   adcard: {
