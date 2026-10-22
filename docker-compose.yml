@@ -1,0 +1,21 @@
+# 배포와 같은 이미지로 이 PC에서 띄워 본다 (http://localhost:8080)
+#   docker compose up --build
+# 개발할 때는 docker-compose.dev.yml 을 쓴다.
+name: 'portfolio'
+
+services:
+  app:
+    build: .
+    image: ghcr.io/jiseok1378/portfolio:latest
+    container_name: portfolio
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}   # 없으면 사례 화면만 뜨고 챗봇은 "사용할 수 없음"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s

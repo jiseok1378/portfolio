@@ -1,0 +1,85 @@
+name: Build and Publish
+on:
+  push:
+    branches:
+      - main  # main 브랜치 푸시 시 테스트 → 이미지 빌드/배포
+  pull_request:
+    branches:
+      - main  # PR 은 테스트만
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 코드 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 서버 테스트 (JDK 17)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Backend test
+        run: cd backend && chmod +x ./gradlew && ./gradlew test --no-daemon
+
+      # 3. 화면 테스트 (Node 24)
+      - name: Set up Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Frontend test
+        run: cd frontend && npm ci && npm run typecheck && npm test
+
+  build-and-push:
+    needs: test
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 코드 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. GitHub Container Registry 로그인
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3. 이미지 빌드 (latest + 커밋 sha 태그)
+      - name: Build Docker image
+        run: |
+          IMAGE=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
+          docker build -t $IMAGE:latest -t $IMAGE:${{ github.sha }} .
+        env:
+          DOCKER_BUILDKIT: 1
+
+      # 4. GHCR 로 푸시
+      - name: Push Docker image to GHCR
+        run: |
+          IMAGE=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
+          docker push $IMAGE:latest
+          docker push $IMAGE:${{ github.sha }}
+
+      # 5. Render 배포 훅 호출 (훅 주소는 저장소 secret, 없으면 건너뜀)
+      - name: Trigger Render Deploy Hook
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK" ]; then
+            echo "RENDER_DEPLOY_HOOK 이 없어 배포 훅을 건너뜁니다."
+            exit 0
+          fi
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK"

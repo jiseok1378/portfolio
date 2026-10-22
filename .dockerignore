@@ -1,0 +1,14 @@
+.git
+.idea
+.superpowers
+.playwright-mcp
+docs/superpowers
+경력관리 파일
+content/.forbidden-terms.local.txt
+**/node_modules
+**/.quasar
+frontend/dist
+backend/build
+backend/.gradle
+**/.env
+**/.env.*
