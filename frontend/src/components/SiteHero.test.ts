@@ -27,3 +27,16 @@ test('filled name and headline are shown', () => {
   expect(w.find('[data-test="name"]').text()).toBe('홍길동');
   expect(w.find('[data-test="headline"]').text()).toBe('같은 실수를 두 번 하지 않게');
 });
+
+test('headline becomes the main heading and title moves below it', () => {
+  const w = mountQ(SiteHero, {
+    props: { profile: { ...blank, headline: '반복되는 일을 설정과 자동화로 바꾸는 백엔드 개발자' }, now: new Date('2026-10-22') },
+  });
+  expect(w.find('h1').text()).toBe('반복되는 일을 설정과 자동화로 바꾸는 백엔드 개발자');
+  expect(w.find('.hero__title').text()).toBe('백엔드 개발자 · Java / Spring Boot');
+});
+
+test('without headline the title is the main heading', () => {
+  const w = mountQ(SiteHero, { props: { profile: blank, now: new Date('2026-10-22') } });
+  expect(w.find('h1').text()).toBe('백엔드 개발자 · Java / Spring Boot');
+});

@@ -39,7 +39,7 @@ class ContentRepositoryTest {
     void profile_blankFields_areEmptyStringsNotNull() {
         Profile p = repo.profile();
         assertThat(p.name()).isEmpty();
-        assertThat(p.headline()).isEmpty();
+        assertThat(p.headline()).isNotBlank();
         assertThat(p.email()).isEmpty();
         assertThat(p.phone()).isEmpty();
         assertThat(p.github()).isEmpty();

@@ -106,23 +106,28 @@ a {
   margin: 0;
 }
 
-.hero__title {
-  font-size: 30px;
+.hero__headline {
+  font-size: 32px;
   font-weight: 700;
   line-height: 1.35;
   margin: 4px 0 0;
 }
 
+.hero__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 12px 0 0;
+}
+
+.hero__title--main {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
 .hero__length {
   color: var(--muted);
   margin: 4px 0 0;
-}
-
-.hero__headline {
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 20px 0 0;
 }
 
 .hero__method {
