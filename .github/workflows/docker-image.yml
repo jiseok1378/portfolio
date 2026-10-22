@@ -6,6 +6,7 @@ on:
   pull_request:
     branches:
       - main  # PR 은 테스트만
+  workflow_dispatch:  # Actions 화면에서 수동으로 다시 배포
 
 permissions:
   contents: read
@@ -43,7 +44,7 @@ jobs:
 
   build-and-push:
     needs: test
-    if: github.event_name == 'push'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       # 1. 코드 체크아웃
