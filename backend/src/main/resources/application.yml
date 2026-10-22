@@ -1,3 +1,18 @@
 spring:
   application:
     name: portfolio
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY:not-configured}
+        chat:
+          model: gemini-2.5-flash
+          temperature: 0.3
+        embedding:
+          api-key: ${GEMINI_API_KEY:not-configured}
+          text:
+            model: gemini-embedding-001
+            dimensions: 768
+
+portfolio:
+  vector-store-path: ${VECTOR_STORE_PATH:classpath:vector/vector-store.json}
