@@ -12,6 +12,8 @@ export function mountQ<T extends Component>(component: T, options: ComponentMoun
       plugins: [Quasar, ...(global.plugins ?? [])],
       stubs: {
         RouterLink: { props: ['to'], template: '<a :href="to"><slot /></a>' },
+        // jsdom 에는 그림 크기를 재는 API 가 없어 Vue Flow 캔버스는 대체한다
+        VueFlow: true,
         ...(global.stubs as Record<string, unknown> | undefined),
       },
     },
