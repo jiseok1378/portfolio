@@ -1,0 +1,40 @@
+<script setup lang="ts">
+import { computed, watchEffect } from 'vue';
+import { findCase } from '@/content';
+import CaseSections from '@/components/CaseSections.vue';
+
+const props = defineProps<{ slug: string }>();
+
+const item = computed(() => findCase(props.slug));
+
+watchEffect(() => {
+  document.title = item.value ? `${item.value.title} · 포트폴리오` : '포트폴리오';
+});
+</script>
+
+<template>
+  <main class="page case-page">
+    <template v-if="item">
+      <router-link to="/" class="back-link">← 전체 사례</router-link>
+      <p class="case-page__meta">{{ item.context }} · {{ item.period }}</p>
+      <h1>{{ item.title }}</h1>
+      <p v-if="item.unfinished" class="case-page__badge">미완성 사이드 프로젝트</p>
+      <p class="case-page__summary">{{ item.summary }}</p>
+
+      <div v-if="item.diagram" class="case-page__diagram" :data-diagram="item.diagram" />
+
+      <CaseSections :sections="item.sections" />
+
+      <ul v-if="item.links.length > 0" class="case-page__links">
+        <li v-for="link in item.links" :key="link.url">
+          <a :href="link.url" target="_blank" rel="noopener">{{ link.label }}</a>
+        </li>
+      </ul>
+    </template>
+
+    <template v-else>
+      <h1>사례를 찾을 수 없습니다</h1>
+      <router-link to="/">처음 화면으로</router-link>
+    </template>
+  </main>
+</template>

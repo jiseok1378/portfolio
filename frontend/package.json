@@ -1,0 +1,38 @@
+{
+  "name": "portfolio-frontend",
+  "version": "0.0.1",
+  "description": "개발자 포트폴리오",
+  "productName": "포트폴리오",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "quasar dev --hostname 0.0.0.0",
+    "build": "quasar build",
+    "test": "vitest run",
+    "typecheck": "vue-tsc --noEmit",
+    "postinstall": "quasar prepare --silent"
+  },
+  "dependencies": {
+    "@quasar/extras": "^2.1.0",
+    "pinia": "^4.0.2",
+    "quasar": "^2.35.2",
+    "vue": "^3.5.22",
+    "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@quasar/app-vite": "^3.10.3",
+    "@quasar/vite-plugin": "^2.0.2",
+    "@types/node": "^22.19.11",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vue/test-utils": "^2.4.6",
+    "autoprefixer": "^10.4.27",
+    "jsdom": "^26.1.0",
+    "postcss": "^8.5.8",
+    "typescript": "^6.0.0",
+    "vitest": "^4.1.12",
+    "vue-tsc": "^3.3.3"
+  },
+  "engines": {
+    "node": "^24 || ^22.22.0"
+  }
+}
