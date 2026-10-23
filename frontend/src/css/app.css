@@ -87,6 +87,9 @@ a {
 }
 
 .site-nav__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin-right: auto;
   font-weight: 800 !important;
   font-size: 18px !important;
@@ -1098,4 +1101,10 @@ a {
 
 .driver-popover.portfolio-tour .driver-popover-close-btn {
   color: var(--grey-500);
+}
+
+.site-nav__logo {
+  width: 24px;
+  height: 24px;
+  flex: none;
 }

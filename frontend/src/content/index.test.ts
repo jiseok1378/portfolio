@@ -5,6 +5,7 @@ describe('content', () => {
   test('featured cases follow index.json order', () => {
     expect(featuredCases().map((c) => c.slug)).toEqual([
       'realtime-records',
+      'pool-query-tuning',
       'ad-card-designer',
       'llm-tools-chatbot',
       'custom-fields',
@@ -17,7 +18,7 @@ describe('content', () => {
   });
 
   test('cases() returns featured then others', () => {
-    expect(cases()).toHaveLength(7);
+    expect(cases()).toHaveLength(8);
   });
 
   test('findCase unknown slug is undefined', () => {
@@ -35,7 +36,7 @@ describe('content', () => {
 
   test('parallel processing story lives in career with the article link', () => {
     const stories = career().jobs.flatMap((j) => j.stories);
-    const story = stories.find((x) => x.title.includes('병렬'));
+    const story = stories.find((x) => x.title.includes('COYOTE'));
     expect(story?.links[0]?.url).toContain('boannews.com');
   });
 

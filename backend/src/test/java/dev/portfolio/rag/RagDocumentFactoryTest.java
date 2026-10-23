@@ -40,7 +40,7 @@ class RagDocumentFactoryTest {
         List<Document> docs = factory.create();
         assertThat(docs).anySatisfy(d -> {
             assertThat(d.getMetadata()).containsEntry("slug", RagDocumentFactory.CAREER_SLUG);
-            assertThat(d.getText()).contains("WebSocket");
+            assertThat(d.getText()).contains("fastexcel");
         });
         assertThat(docs).anySatisfy(d -> assertThat(d.getText()).contains("CI/CD"));
     }

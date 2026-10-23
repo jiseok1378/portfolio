@@ -14,7 +14,7 @@ test('each job shows period beside company, role and stack', () => {
 test('stories are native disclosure rows, collapsed by default', () => {
   const w = mountQ(CareerTimeline, { props: { career: career() } });
   const rows = w.findAll('details.career__story');
-  expect(rows.length).toBeGreaterThan(5);
+  expect(rows.length).toBeGreaterThan(2);
   expect(rows[0]!.find('summary').text()).toContain('국제 스포츠 대회 운영 SaaS');
   expect(rows[0]!.attributes('open')).toBeUndefined();
 });

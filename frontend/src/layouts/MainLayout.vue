@@ -25,7 +25,7 @@ const me = profile();
   <q-layout view="hHh lpR fFf">
     <q-header class="site-header">
       <nav class="site-nav">
-        <router-link to="/" class="site-nav__home">{{ me.name || '포트폴리오' }}</router-link>
+        <router-link to="/" class="site-nav__home"><img src="/favicon.svg" alt="" class="site-nav__logo">{{ me.name || '포트폴리오' }}</router-link>
         <router-link to="/#cases">사례</router-link>
         <router-link to="/#career">경력</router-link>
         <router-link to="/#chat">챗봇</router-link>

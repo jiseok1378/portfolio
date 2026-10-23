@@ -1,4 +1,4 @@
 {
-  "featured": ["realtime-records", "ad-card-designer", "llm-tools-chatbot", "custom-fields", "ai-harness"],
+  "featured": ["realtime-records", "pool-query-tuning","ad-card-designer", "llm-tools-chatbot", "custom-fields", "ai-harness"],
   "others": ["report-versioning", "auth-db-docker"]
 }
