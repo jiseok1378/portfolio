@@ -59,10 +59,15 @@
   ],
   "sideProjects": [
     {
-      "name": "온라인 보드게임 앱 — CI/CD 자동 배포",
-      "period": "2025.10 ~ 2025.11",
-      "body": "공통 라이브러리를 main에 올리면 GitHub Actions가 빌드·테스트 후 GitHub Packages에 배포하고, 서버들은 이를 의존성으로 가져다 씁니다. 서버는 main에 올리면 Docker 이미지를 GHCR에 올리고 배포 훅으로 자동 교체됩니다. 비공개 패키지 토큰은 BuildKit secret으로 넘겨 이미지에 남지 않게 했고, Nginx는 연결 주소를 환경 변수로 받아 환경마다 이미지를 새로 만들지 않게 했습니다.",
-      "links": []
+      "name": "이 포트폴리오 사이트 — CI/CD 자동 배포",
+      "period": "2026.10",
+      "body": "지금 보고 계신 사이트를 GitHub Actions로 자동 배포합니다. PR을 올리면 서버(JUnit)와 화면(타입 검사·Vitest) 테스트만 돌리고, main에 올리면 테스트를 통과한 뒤 Docker 이미지를 latest와 커밋 해시 태그로 GHCR에 올리고 Render 배포 훅을 불러 교체합니다. 배포 훅 주소는 저장소 secret에 두고, 없으면 배포 단계만 건너뜁니다. 이미지는 3단계로 만듭니다. Vue3·Quasar 화면을 빌드하고, 그 결과를 Spring Boot jar에 정적 파일로 넣고, 실행 단계는 JRE만 담아 root가 아닌 사용자로 띄웁니다. Render 무료 인스턴스의 작은 메모리에 맞춰 JVM 힙을 컨테이너 메모리 비율(75%)로 잡았습니다.",
+      "links": [
+        {
+          "label": "GitHub: portfolio (배포 워크플로)",
+          "url": "https://github.com/jiseok1378/portfolio/blob/main/.github/workflows/docker-image.yml"
+        }
+      ]
     },
     {
       "name": "사내 제안서 작성 도우미 RAG 챗봇",
